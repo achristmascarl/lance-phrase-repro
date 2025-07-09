@@ -12,6 +12,10 @@ def main():
     fts_results["text"].to_list()
     matches = 0
 
+    # Phrase query without space works
+    phrase_results = tbl.search(PhraseQuery("United", "text", slop=0)).to_polars()
+    print(phrase_results)
+
     # At least some of the results should have an exact phrase match
     for i, row in enumerate(fts_results["text"]):
         if str(row).find("United States") >= 0:
